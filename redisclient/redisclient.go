@@ -14,10 +14,10 @@ var G_RedisClient = make(map[string]redis.Conn)
 
 func Redisinit(rcs []RedisConfig) error {
 	for _, rc := range rcs {
-		if conn, err := redis.Dial("tcp", rc.ip, redis.DialDatabase(rc.db)); err != nil {
+		if conn, err := redis.Dial("tcp", rc.Ip, redis.DialDatabase(rc.Db)); err != nil {
 			return err
 		} else {
-			G_RedisClient[rc.name] = conn
+			G_RedisClient[rc.Name] = conn
 		}
 	}
 	return nil
