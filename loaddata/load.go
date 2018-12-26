@@ -39,7 +39,8 @@ type MysqlC struct {
 
 	User, Password, DB string
 
-	Sql string
+	Colnum int
+	Sql    string
 }
 
 //文件加载 从mysql file 到 [][]string
@@ -57,7 +58,10 @@ func loadFromMysql(dbc *MysqlC, writeTo DataTo) error {
 	}
 	defer rows.Close()
 
-	var oneLine []interface{}
+	var oneLine = make([]interface{}, dbc.Colnum)
+	for i := 0; i < dbc.Colnum; i++ {
+		oneLine[i] = new(sql.RawBytes)
+	}
 	var errCount int
 	for rows.Next() {
 		if err := rows.Scan(oneLine...); err == nil {
