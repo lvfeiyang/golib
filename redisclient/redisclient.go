@@ -5,9 +5,9 @@ import (
 )
 
 type RedisConfig struct {
-	name string
-	ip   string
-	db   int
+	Name string
+	Ip   string
+	Db   int
 }
 
 var G_RedisClient = make(map[string]redis.Conn)
