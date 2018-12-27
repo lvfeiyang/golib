@@ -5,16 +5,17 @@ import (
 )
 
 type RedisConfig struct {
-	Name string
-	Ip   string
-	Db   int
+	Name     string
+	Ip       string
+	Db       int
+	Password string
 }
 
 var G_RedisClient = make(map[string]redis.Conn)
 
 func Redisinit(rcs []RedisConfig) error {
 	for _, rc := range rcs {
-		if conn, err := redis.Dial("tcp", rc.Ip, redis.DialDatabase(rc.Db)); err != nil {
+		if conn, err := redis.Dial("tcp", rc.Ip, redis.DialDatabase(rc.Db), redis.DialPassword(rc.Password)); err != nil {
 			return err
 		} else {
 			G_RedisClient[rc.Name] = conn
